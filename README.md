@@ -75,7 +75,7 @@ While this framework focuses on UI automation, a **hybrid approach** could be be
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 amazon-automation/
@@ -104,7 +104,7 @@ amazon-automation/
 
 ---
 
-## ✅ Prerequisites
+## Prerequisites
 
 ### Local Development
 - **Node.js**: v18.x or higher
@@ -117,7 +117,7 @@ amazon-automation/
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### Local Setup
 
@@ -145,7 +145,7 @@ amazon-automation/
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -190,7 +190,7 @@ Edit `data/test-data.json` for test-specific data:
 }
 ```
 
-⚠️ **Security Note**: Never commit real credentials. Use environment variables or secure vaults in production.
+**Security Note**: Never commit real credentials. Use environment variables or secure vaults in production.
 
 ### Playwright Configuration
 
@@ -209,30 +209,29 @@ Key settings in `playwright.config.ts`:
 
 ### Local Execution
 
-#### Run All Tests
-```bash
-npm test
-```
+This project uses **Playwright-BDD**, which requires generating test files from feature files before execution. The easiest way to run tests is using the provided NPM scripts.
+
+#### Recommended: Use NPM Scripts
+The following scripts handle both generation and execution automatically:
+
+| Command | Description |
+|---------|-------------|
+| `npm run test:bdd` | Generate BDD tests and run all of them (headless) |
+| `npm run test:headed` | Generate BDD tests and run all of them in **headed mode** |
+| `npm run bddgen` | Only generate BDD tests without running them |
+| `npm test` | Run already generated tests |
 
 #### Run Specific Feature
+To run a specific feature file (ensure you've run `npm run bddgen` first if you've made changes):
 ```bash
+# Run the Amazon shopping feature
 npx playwright test tests/features/amazon_shopping.feature
 ```
 
 #### Run with UI Mode (Interactive)
+Best for developing tests:
 ```bash
 npx playwright test --ui
-```
-
-#### Run in Headed Mode (See Browser)
-```bash
-npx playwright test --headed
-```
-
-#### Run Specific Browser
-```bash
-npx playwright test --project=chromium
-npx playwright test --project=mobile-chrome
 ```
 
 #### Debug Mode
@@ -240,10 +239,21 @@ npx playwright test --project=mobile-chrome
 npx playwright test --debug
 ```
 
-#### Generate BDD Tests
+#### Filter by Tags
+You can run scenarios with specific tags defined in `.feature` files (e.g., `@Negative`):
 ```bash
-npx bddgen
+npx playwright test --grep "@Negative"
 ```
+
+#### Run Specific Browser
+```bash
+# Run on Desktop Chrome
+npx playwright test --project=chromium
+
+# Run on Mobile Chrome
+npx playwright test --project=mobile-chrome
+```
+
 
 ---
 
@@ -475,7 +485,16 @@ jobs:
 
 ### Common Issues
 
-#### 1. CAPTCHA Challenges
+#### 1. "No tests found" Error
+
+**Problem**: Running `npx playwright test` returns "No tests found".
+
+**Solution**:
+- Ensure you have run `npm run bddgen` to generate tests in the `.features-gen` directory.
+- Verify the path to the feature file is correct (e.g., `tests/features/amazon_shopping.feature`).
+- If using tags, ensure the tag exists in the feature file.
+
+#### 2. CAPTCHA Challenges
 
 **Problem**: Amazon shows CAPTCHA during login
 
