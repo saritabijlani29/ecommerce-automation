@@ -1,0 +1,56 @@
+# Node modules
+node_modules/
+
+# Playwright test results & reports
+playwright-report/
+test-results/
+blob-report/
+report/
+allure-results/
+allure-report/
+
+# Test artifacts
+screenshots/
+videos/
+*.png
+*.webm
+*.zip
+traces/
+
+# Generated BDD files
+.features-gen/
+bddgen_log.txt
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+out/
+
+# Coverage reports
+coverage/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+
+# Package manager files (optional - depends on team decision)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

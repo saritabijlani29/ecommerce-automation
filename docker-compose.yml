@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  playwright-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: amazon-automation
+    
+    # Environment variables
+    environment:
+      - BASE_URL=${BASE_URL:-https://www.amazon.com}
+      - USER_EMAIL=${USER_EMAIL:-ecommercetest412@gmail.com}
+      - USER_PASSWORD=${USER_PASSWORD:-test123@2}
+      - HEADLESS=${HEADLESS:-true}
+      - CI=true
+      - TIMEOUT=${TIMEOUT:-300000}
+      - SCREENSHOT=${SCREENSHOT:-on}
+      - VIDEO=${VIDEO:-retain-on-failure}
+      - TRACE=${TRACE:-on-first-retry}
+    
+    # Volume mounts for test artifacts
+    volumes:
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+      - ./screenshots:/app/screenshots
+      - ./videos:/app/videos
+    
+    # Shared memory size (required for Chromium)
+    shm_size: '2gb'
+    
+    # Network mode
+    network_mode: bridge
+    
+    # Restart policy
+    restart: "no"
+    
+    # Command override (optional)
+    # command: npm test
+
+# Optional: Add a service to view reports
+  report-server:
+    image: nginx:alpine
+    container_name: playwright-report-server
+    ports:
+      - "8080:80"
+    volumes:
+      - ./playwright-report:/usr/share/nginx/html:ro
+    profiles:
+      - reports
+    restart: "no"

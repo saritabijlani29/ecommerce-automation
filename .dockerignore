@@ -1,0 +1,47 @@
+# Node modules
+node_modules/
+npm-debug.log*
+
+# Test artifacts
+test-results/
+playwright-report/
+screenshots/
+videos/
+*.png
+*.webm
+*.zip
+
+# Logs
+*.log
+log.txt
+bddgen_log.txt
+last_run.log
+test_output.txt
+test_results.log
+test_results.txt
+test_run.log
+
+# Environment files
+.env
+.env.local
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated files
+.features-gen/
+
+# Build artifacts
+dist/
+build/

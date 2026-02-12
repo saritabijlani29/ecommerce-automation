@@ -1,0 +1,10 @@
+{
+    "user": {
+        "email": "ecommercetest412@gmail.com",
+        "password": "test123@2"
+    },
+    "product": {
+        "searchQuery": "Apple iPhone 15 pro",
+        "expectedName": "Apple iPhone 15 pro"
+    }
+}
