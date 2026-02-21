@@ -1,0 +1,30 @@
+name: PR Approved - Run Tests
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  run-tests:
+    if: github.event.review.state == 'approved' && github.event.pull_request.base.ref == 'master'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npm test
